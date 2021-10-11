@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Draggable from "react-draggable";
 import styled from "styled-components";
+
 import Element from "./components/Element";
 import { alphaModel } from "./models.index";
 

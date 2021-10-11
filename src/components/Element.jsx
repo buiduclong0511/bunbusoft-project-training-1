@@ -4,7 +4,7 @@ const Element = ({ data = {} }) => {
   return (
     <Container>
       <div className="image">
-        <img src={data.image} alt={data.name} />
+        <img src={data.image} alt={data.name} draggable={false} />
       </div>
       <div className="name">{data.name}</div>
     </Container>

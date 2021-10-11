@@ -1,10 +1,12 @@
 import { useState } from "react";
+import Draggable from "react-draggable";
 import styled from "styled-components";
+
 import Element from "./components/Element";
 import { alphaModel } from "./models.index";
 
 const App = () => {
-  const [listElements, setListElements] = useState([
+  const [listTags, setListTags] = useState([
     {
       image: "images/elements/air.png",
       name: "air",
@@ -22,6 +24,21 @@ const App = () => {
       name: "water",
     },
   ]);
+  const [listElements, setListElements] = useState(listTags.map((item) => [item]));
+
+  const handleAddNewElement = (tagIndex, elementIndex) => {
+    // console.log({ tagIndex, elementIndex });
+    if (elementIndex + 1 === listElements[tagIndex].length) {
+      const newElement = {
+        ...listElements[tagIndex][elementIndex],
+      };
+      const newListElement = [...listElements];
+      newListElement[tagIndex].push(newElement);
+      console.log(newListElement[tagIndex]);
+      setListElements(newListElement);
+    }
+  };
+
   return (
     <Container>
       <div className="side">
@@ -31,8 +48,22 @@ const App = () => {
           ))}
         </div>
         <div className="listElements">
-          {listElements.map((item, index) => {
-            return <Element data={item} key={index} />;
+          {listTags.map((item, index) => {
+            return (
+              <div style={{ position: "relative" }}>
+                <Element data={item} key={index} />
+                {listElements[index].map((item, _index) => {
+                  const handleStop = () => handleAddNewElement(index, _index);
+                  return (
+                    <Draggable key={_index} onStop={handleStop}>
+                      <div style={{ position: "absolute", top: 0, left: 0 }}>
+                        <Element data={item} key={index} />
+                      </div>
+                    </Draggable>
+                  );
+                })}
+              </div>
+            );
           })}
         </div>
       </div>

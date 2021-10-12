@@ -1,11 +1,12 @@
 import styled from "styled-components";
+import { getImage } from "../utils";
 
 const Element = ({ data = {} }) => {
   // console.log(data);
   return (
     <Container>
       <div className="image">
-        <img src={data.image} alt={data.name} draggable={false} />
+        <img src={getImage(data.name)} alt={data.name} draggable={false} />
       </div>
       <div className="name">{data.name}</div>
     </Container>

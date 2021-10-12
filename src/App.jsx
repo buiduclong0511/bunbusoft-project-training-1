@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Draggable from "react-draggable";
 import styled from "styled-components";
 import Element from "./components/Element";
@@ -43,30 +43,33 @@ const App = () => {
     setListElementsByTag(newListElementsByTag);
   };
 
-  const handleStopDrag = (position, tagIndex, elementIndex) => {
-    // console.log({ tagIndex, elementIndex });
-    // console.log({ position, tagIndex, elementIndex });
-    const isDragToDroppable = position.x < width - 270;
-    if (!isDragToDroppable) {
-      const newListElementsByTag = _.cloneDeep(listElementsByTag);
-      delete newListElementsByTag[tagIndex][elementIndex];
-      setListElementsByTag(newListElementsByTag);
-      setCurrentSelectedElement(null);
-    } else {
-      const newListElementsByTag = _.cloneDeep(listElementsByTag);
-      const newElement = {
-        position,
-        info: newListElementsByTag[tagIndex][elementIndex].info,
-      };
-      newListElementsByTag[tagIndex][elementIndex] = newElement;
-      setListElementsByTag(newListElementsByTag);
-      setCurrentSelectedElement({
-        tagIndex,
-        elementIndex,
-        element: newListElementsByTag[tagIndex][elementIndex],
-      });
-    }
-  };
+  const handleStopDrag = useCallback(
+    (position, tagIndex, elementIndex) => {
+      // console.log({ tagIndex, elementIndex });
+      // console.log({ position, tagIndex, elementIndex });
+      const isDragToDroppable = position.x < width - 270;
+      if (!isDragToDroppable) {
+        const newListElementsByTag = _.cloneDeep(listElementsByTag);
+        delete newListElementsByTag[tagIndex][elementIndex];
+        setListElementsByTag(newListElementsByTag);
+        setCurrentSelectedElement(null);
+      } else {
+        const newListElementsByTag = _.cloneDeep(listElementsByTag);
+        const newElement = {
+          position,
+          info: newListElementsByTag[tagIndex][elementIndex].info,
+        };
+        newListElementsByTag[tagIndex][elementIndex] = newElement;
+        setListElementsByTag(newListElementsByTag);
+        setCurrentSelectedElement({
+          tagIndex,
+          elementIndex,
+          element: newListElementsByTag[tagIndex][elementIndex],
+        });
+      }
+    },
+    [width, listElementsByTag]
+  );
 
   useEffect(() => {
     if (currentSelectedElement) {
@@ -83,17 +86,19 @@ const App = () => {
         const newElement = combination(elementId1, elementId2);
         if (newElement) {
           const newListElementsByTag = _.cloneDeep(listElementsByTag);
-          newListElementsByTag[mergeableElement.element1.tagIndex][
-            mergeableElement.element1.elementIndex
-          ].info = newElement;
-          delete newListElementsByTag[mergeableElement.element2.tagIndex][
+          newListElementsByTag[mergeableElement.element2.tagIndex][
             mergeableElement.element2.elementIndex
+          ].info = newElement;
+          delete newListElementsByTag[mergeableElement.element1.tagIndex][
+            mergeableElement.element1.elementIndex
           ];
           setListElementsByTag(newListElementsByTag);
         }
       }
     }
   }, [currentSelectedElement]);
+
+  // console.log(listElementsByTag);
 
   return (
     <Container>

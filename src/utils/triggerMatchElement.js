@@ -17,8 +17,8 @@ export const triggerMatchElement = (listElementsByTag, currentSelectedElement) =
       }
       return (
         (x > 0 || y > 0) &&
-        Math.abs(currentSelectedElement.element.position.x - x) < 20 &&
-        Math.abs(currentSelectedElement.element.position.y - y) < 20
+        Math.abs(currentSelectedElement.element.position.x - x) < 40 &&
+        Math.abs(currentSelectedElement.element.position.y - y) < 40
       );
     });
   });

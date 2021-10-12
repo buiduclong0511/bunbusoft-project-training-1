@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const Element = ({ data = {} }) => {
+  // console.log(data);
   return (
     <Container>
       <div className="image">

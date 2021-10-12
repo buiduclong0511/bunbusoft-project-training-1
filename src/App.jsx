@@ -92,7 +92,24 @@ const App = () => {
           delete newListElementsByTag[mergeableElement.element1.tagIndex][
             mergeableElement.element1.elementIndex
           ];
-          setListElementsByTag(newListElementsByTag);
+
+          const isExistedElement = listTags.some((tag) => tag.id === newElement.id);
+          if (!isExistedElement) {
+            const newListTags = [...listTags, newElement];
+            newListElementsByTag["" + (newListTags.length - 1)] = {
+              0: {
+                position: {
+                  x: 0,
+                  y: 0,
+                },
+                info: newElement,
+              },
+            };
+            setListTags(newListTags);
+            setListElementsByTag(newListElementsByTag);
+          } else {
+            setListElementsByTag(newListElementsByTag);
+          }
         }
       }
     }

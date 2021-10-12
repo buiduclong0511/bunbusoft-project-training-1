@@ -4,13 +4,17 @@ import Draggable from "react-draggable";
 import styled from "styled-components";
 import Counter from "./components/Counter";
 import Element from "./components/Element";
+import Menu from "./components/Menu";
+import Modal from "./components/Modal";
 import { alphaModel } from "./models.index";
 import { combination, getBaseElements, triggerMatchElement, useWindowDimensions } from "./utils";
-import { isFullScreenMode, toggleFullScreen } from "./utils/toggleFullScreen";
+import { toggleFullScreen } from "./utils/toggleFullScreen";
 
 const App = () => {
   const [listTags, setListTags] = useState(getBaseElements());
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [currentActiveMenu, setCurrentActiveMenu] = useState(0);
   const [listElementsByTag, setListElementsByTag] = useState(
     listTags.reduce((result, current, index) => {
       const newTag = {
@@ -128,6 +132,17 @@ const App = () => {
     }
   };
 
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
+  };
+
+  const handleOpenModal = () => {
+    setIsOpenModal(true);
+  };
+
+  const handleChangeMenu = (tagIndex) => {
+    setCurrentActiveMenu(tagIndex);
+  };
   return (
     <Container>
       <button className="toggleFullScreen" onClick={handleToggleFullScreen}>
@@ -172,6 +187,20 @@ const App = () => {
       <div className="counter">
         <Counter currentCount={listTags.length} maxCount={580} />
       </div>
+      <div className="menu">
+        <button onClick={handleOpenModal}>
+          <img src="images/menu.png" alt="" />
+        </button>
+      </div>
+      {isOpenModal && (
+        <Modal onClose={handleCloseModal}>
+          <Menu
+            onClose={handleCloseModal}
+            currentActiveMenu={currentActiveMenu}
+            onChangeMenu={handleChangeMenu}
+          />
+        </Modal>
+      )}
     </Container>
   );
 };
@@ -182,12 +211,8 @@ const Container = styled.div`
   position: relative;
 
   .toggleFullScreen {
-    background-color: transparent;
-    border: none;
-    outline: none;
     margin-left: 10px;
     margin-top: 10px;
-    cursor: pointer;
   }
 
   .side {
@@ -234,6 +259,12 @@ const Container = styled.div`
     font-size: 60px;
     color: #e8ded0;
     padding-left: 10px;
+  }
+
+  .menu {
+    position: absolute;
+    bottom: 10px;
+    right: 260px;
   }
 `;
 

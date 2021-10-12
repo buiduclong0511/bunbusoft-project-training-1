@@ -50,3 +50,5 @@ export const data = [
     recipe: [3, 8],
   },
 ];
+
+export * from "./menuModels";

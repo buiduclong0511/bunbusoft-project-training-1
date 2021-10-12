@@ -16,3 +16,5 @@ export const getBaseElements = () => {
 export const getImage = (elementName) => {
   return `images/elements/${elementName}.png`;
 };
+
+export * from "./getWindoDimension";

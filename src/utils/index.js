@@ -17,4 +17,5 @@ export const getImage = (elementName) => {
   return `images/elements/${elementName}.png`;
 };
 
-export * from "./getWindoDimension";
+export * from "./getWindowDimension";
+export * from "./triggerMatchElement";

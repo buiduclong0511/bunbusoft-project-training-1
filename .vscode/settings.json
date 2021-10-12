@@ -1,5 +1,5 @@
 {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "cSpell.words": ["forecastday", "mapbox", "maxtemp", "mintemp"]
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "cSpell.words": ["forecastday", "mapbox", "maxtemp", "mergeable", "mintemp"]
 }

@@ -1,10 +1,10 @@
 import * as _ from "lodash";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Draggable from "react-draggable";
 import styled from "styled-components";
 import Element from "./components/Element";
 import { alphaModel } from "./models.index";
-import { getBaseElements, useWindowDimensions } from "./utils";
+import { combination, getBaseElements, triggerMatchElement, useWindowDimensions } from "./utils";
 
 const App = () => {
   const [listTags, setListTags] = useState(getBaseElements());
@@ -24,11 +24,12 @@ const App = () => {
       return Object.assign(result, newTag);
     }, {})
   );
-  console.log(listElementsByTag);
+  const [currentSelectedElement, setCurrentSelectedElement] = useState(null);
+  // console.log(listElementsByTag);
   const { width } = useWindowDimensions();
 
   const handleMouseEnter = (tagIndex, element) => {
-    console.log({ tagIndex, element });
+    // console.log({ tagIndex, element });
     const newListElementsByTag = _.cloneDeep(listElementsByTag);
     const newElement = {
       position: {
@@ -50,6 +51,7 @@ const App = () => {
       const newListElementsByTag = _.cloneDeep(listElementsByTag);
       delete newListElementsByTag[tagIndex][elementIndex];
       setListElementsByTag(newListElementsByTag);
+      setCurrentSelectedElement(null);
     } else {
       const newListElementsByTag = _.cloneDeep(listElementsByTag);
       const newElement = {
@@ -58,10 +60,40 @@ const App = () => {
       };
       newListElementsByTag[tagIndex][elementIndex] = newElement;
       setListElementsByTag(newListElementsByTag);
+      setCurrentSelectedElement({
+        tagIndex,
+        elementIndex,
+        element: newListElementsByTag[tagIndex][elementIndex],
+      });
     }
   };
 
-  console.log(listElementsByTag);
+  useEffect(() => {
+    if (currentSelectedElement) {
+      const mergeableElement = triggerMatchElement(listElementsByTag, currentSelectedElement);
+      if (mergeableElement) {
+        const elementId1 =
+          listElementsByTag[mergeableElement.element1.tagIndex][
+            mergeableElement.element1.elementIndex
+          ].info.id;
+        const elementId2 =
+          listElementsByTag[mergeableElement.element2.tagIndex][
+            mergeableElement.element2.elementIndex
+          ].info.id;
+        const newElement = combination(elementId1, elementId2);
+        if (newElement) {
+          const newListElementsByTag = _.cloneDeep(listElementsByTag);
+          newListElementsByTag[mergeableElement.element1.tagIndex][
+            mergeableElement.element1.elementIndex
+          ].info = newElement;
+          delete newListElementsByTag[mergeableElement.element2.tagIndex][
+            mergeableElement.element2.elementIndex
+          ];
+          setListElementsByTag(newListElementsByTag);
+        }
+      }
+    }
+  }, [currentSelectedElement]);
 
   return (
     <Container>

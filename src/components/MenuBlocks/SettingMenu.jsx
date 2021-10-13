@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
 export const SettingMenu = () => {
-  return <Container>SettingMenu</Container>;
+  return (
+    <Container>
+      <div className="heading">Settings</div>
+    </Container>
+  );
 };
 
 const Container = styled.div``;

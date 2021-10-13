@@ -7,7 +7,13 @@ import Element from "./components/Element";
 import Menu from "./components/Menu";
 import Modal from "./components/Modal";
 import { alphaModel } from "./models.index";
-import { combination, getBaseElements, triggerMatchElement, useWindowDimensions } from "./utils";
+import {
+  combination,
+  getBaseElements,
+  getTotalElements,
+  triggerMatchElement,
+  useWindowDimensions,
+} from "./utils";
 import { toggleFullScreen } from "./utils/toggleFullScreen";
 
 const App = () => {
@@ -185,7 +191,7 @@ const App = () => {
         </div>
       </div>
       <div className="counter">
-        <Counter currentCount={listTags.length} maxCount={580} />
+        <Counter currentCount={listTags.length} maxCount={getTotalElements()} />
       </div>
       <div className="menu">
         <button onClick={handleOpenModal}>

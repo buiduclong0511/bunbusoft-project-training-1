@@ -29,6 +29,13 @@ export const HomeMenu = () => {
         <p>A game by Jakub Koziol // @jakubkoziol</p>
         <p>Little Alchemy wouldn't be possible without the help from these fine folks:</p>
       </div>
+      <div className="content">
+        <p>
+          Lukasz Nawrot - code <br />
+          Marcin Bychawski - Code, Tools <br />
+          Ewa Koziol - Icons
+        </p>
+      </div>
     </Container>
   );
 };

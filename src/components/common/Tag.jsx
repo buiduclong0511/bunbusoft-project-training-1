@@ -19,6 +19,11 @@ const StyledTag = styled.div`
   border-bottom: 1px solid rgba(232, 222, 208, 0.5);
   position: relative;
   cursor: pointer;
+  border-right: 1px solid rgba(232, 222, 208, 0.5);
+
+  &:last-child {
+    border-right: none;
+  }
 
   .lineActive {
     display: ${(p) => (p.active ? "block" : "none")};

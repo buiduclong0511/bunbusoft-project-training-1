@@ -2,12 +2,13 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Tag } from "../components/common";
 import { AchievementsMenu, HomeMenu, SettingMenu } from "../components/MenuBlocks";
-import { configs, ENGLISH, languages, menuModels } from "../data";
+import { achievements, configs, ENGLISH, languages, menuModels } from "../data";
 
 const Menu = ({ onClose = () => {} }) => {
   const [currentActiveMenu, setCurrentActiveMenu] = useState(0);
   const [selectedLanguage, setSelectedLanguage] = useState(ENGLISH);
   const [selectedSettingConfigs, setSelectedSettingConfigs] = useState([]);
+  const [listAchievements, setListAchievements] = useState(achievements);
 
   const handleChangeMenu = (tagIndex) => {
     setCurrentActiveMenu(tagIndex);
@@ -53,7 +54,7 @@ const Menu = ({ onClose = () => {} }) => {
           />
         );
       case 2:
-        return <AchievementsMenu />;
+        return <AchievementsMenu achievements={listAchievements} />;
       default:
         return null;
     }
@@ -99,6 +100,11 @@ const Container = styled.div`
 
   .main {
     flex: 1;
+    overflow-y: scroll;
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .listTags {

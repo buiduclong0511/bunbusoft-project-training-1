@@ -71,3 +71,48 @@ export const configs = [
     label: "Night mode",
   },
 ];
+
+export const achievements = [
+  {
+    id: 1,
+    title: "50 Elements",
+    description: "Find 50 elements",
+    image: "images/achievements/achievement50-locked.png",
+  },
+  {
+    id: 2,
+    title: "100 Elements",
+    description: "Find 100 elements",
+    image: "images/achievements/achievement100-locked.png",
+  },
+  {
+    id: 3,
+    title: "200 Elements",
+    description: "Find 200 elements",
+    image: "images/achievements/achievement200-locked.png",
+  },
+  {
+    id: 4,
+    title: "This! Is! Alchemy!",
+    description: "Is this reference even funny?",
+    image: "images/achievements/achievement300-locked.png",
+  },
+  {
+    id: 5,
+    title: "| Swear | Can Stop Any Time",
+    description: "400 is a pretty big number",
+    image: "images/achievements/achievement400-locked.png",
+  },
+  {
+    id: 6,
+    title: "Gotta Catch 'Em All",
+    description: "At some point have all available elements in your library",
+    image: "images/achievements/achievement-all-locked.png",
+  },
+  {
+    id: 7,
+    title: "Is This Just Fantasy?",
+    description: "A hidden gem, eh?",
+    image: "images/achievements/achievement-hidden-locked.png",
+  },
+];

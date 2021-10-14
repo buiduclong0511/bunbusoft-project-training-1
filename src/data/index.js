@@ -62,3 +62,4 @@ export const data = [
 ];
 
 export * from "./menuModels";
+export * from "./settings";

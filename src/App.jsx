@@ -4,8 +4,8 @@ import Draggable from "react-draggable";
 import styled from "styled-components";
 import Counter from "./components/Counter";
 import Element from "./components/Element";
-import Menu from "./components/Menu";
 import Modal from "./components/Modal";
+import Menu from "./container/Menu";
 import { alphaModel } from "./models.index";
 import {
   combination,
@@ -20,7 +20,6 @@ const App = () => {
   const [listTags, setListTags] = useState(getBaseElements());
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [currentActiveMenu, setCurrentActiveMenu] = useState(0);
   const [listElementsByTag, setListElementsByTag] = useState(
     listTags.reduce((result, current, index) => {
       const newTag = {
@@ -126,6 +125,7 @@ const App = () => {
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSelectedElement]);
 
   const handleToggleFullScreen = () => {
@@ -146,9 +146,6 @@ const App = () => {
     setIsOpenModal(true);
   };
 
-  const handleChangeMenu = (tagIndex) => {
-    setCurrentActiveMenu(tagIndex);
-  };
   return (
     <Container>
       <button className="toggleFullScreen" onClick={handleToggleFullScreen}>
@@ -200,11 +197,7 @@ const App = () => {
       </div>
       {isOpenModal && (
         <Modal onClose={handleCloseModal}>
-          <Menu
-            onClose={handleCloseModal}
-            currentActiveMenu={currentActiveMenu}
-            onChangeMenu={handleChangeMenu}
-          />
+          <Menu onClose={handleCloseModal} />
         </Modal>
       )}
     </Container>

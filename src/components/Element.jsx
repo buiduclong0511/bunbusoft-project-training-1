@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { getImage } from "../utils";
 
-const Element = ({ data = {} }) => {
+const Element = ({ data = {}, onMouseEnter = () => {} }) => {
   // console.log(data);
   return (
-    <Container>
+    <Container onMouseEnter={onMouseEnter}>
       <div className="image">
         <img src={getImage(data.name)} alt={data.name} draggable={false} />
       </div>

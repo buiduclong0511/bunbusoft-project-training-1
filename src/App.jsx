@@ -2,12 +2,15 @@ import * as _ from "lodash";
 import { useCallback, useEffect, useState } from "react";
 import Draggable from "react-draggable";
 import styled from "styled-components";
+import Counter from "./components/Counter";
 import Element from "./components/Element";
 import { alphaModel } from "./models.index";
 import { combination, getBaseElements, triggerMatchElement, useWindowDimensions } from "./utils";
+import { isFullScreenMode, toggleFullScreen } from "./utils/toggleFullScreen";
 
 const App = () => {
   const [listTags, setListTags] = useState(getBaseElements());
+  const [isFullScreen, setIsFullScreen] = useState(false);
   const [listElementsByTag, setListElementsByTag] = useState(
     listTags.reduce((result, current, index) => {
       const newTag = {
@@ -115,10 +118,25 @@ const App = () => {
     }
   }, [currentSelectedElement]);
 
-  // console.log(listElementsByTag);
+  const handleToggleFullScreen = () => {
+    if (!isFullScreen) {
+      toggleFullScreen.on(document);
+      setIsFullScreen(true);
+    } else {
+      toggleFullScreen.off(document);
+      setIsFullScreen(false);
+    }
+  };
 
   return (
     <Container>
+      <button className="toggleFullScreen" onClick={handleToggleFullScreen}>
+        {isFullScreen ? (
+          <img src="images/cancelFullscreenBtn.png" alt="" />
+        ) : (
+          <img src="images/fullscreenBtn.png" alt="" />
+        )}
+      </button>
       <div className="side">
         <div className="order">
           {alphaModel.map((item, index) => (
@@ -151,6 +169,9 @@ const App = () => {
           })}
         </div>
       </div>
+      <div className="counter">
+        <Counter currentCount={listTags.length} maxCount={580} />
+      </div>
     </Container>
   );
 };
@@ -158,6 +179,16 @@ const App = () => {
 const Container = styled.div`
   min-height: 100vh;
   background-image: url("images/workspace-background.png");
+  position: relative;
+
+  .toggleFullScreen {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    margin-left: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
 
   .side {
     background-image: url("images/library-background.png");
@@ -194,6 +225,15 @@ const Container = styled.div`
       flex-direction: column;
       align-items: stretch;
     }
+  }
+
+  .counter {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 60px;
+    color: #e8ded0;
+    padding-left: 10px;
   }
 `;
 

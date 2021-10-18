@@ -17,5 +17,9 @@ export const getImage = (elementName) => {
   return `images/elements/${elementName}.png`;
 };
 
+export const getTotalElements = () => {
+  return data.length;
+};
+
 export * from "./getWindowDimension";
 export * from "./triggerMatchElement";

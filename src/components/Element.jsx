@@ -18,6 +18,7 @@ const Container = styled.div`
   align-items: center;
   cursor: pointer;
   padding: 5px 0;
+  z-index: 10;
 
   .image {
     width: 50px;

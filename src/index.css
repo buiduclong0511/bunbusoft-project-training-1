@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  user-select: none;
 }
 
 body {
@@ -11,4 +12,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #938671;
   font-weight: lighter;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }

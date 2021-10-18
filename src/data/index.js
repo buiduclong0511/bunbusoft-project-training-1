@@ -44,4 +44,9 @@ export const data = [
     name: "dust",
     recipe: [1, 2],
   },
+  {
+    id: 9,
+    name: "gunpowder",
+    recipe: [3, 8],
+  },
 ];
